@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} New Activity {% endblock %}
+
+
+{% block body %}
+
+<h3>Add an Activity</h3>
+  <hr>
+  <form method="POST" action="/activities/add-activity">
+
+    <div class="form-group"> <label  for="activity_name"> Activity: </label>    
+    <input type="text" id="activity_name" name="activity_name" class="form-control" required autofocus ></div>
+
+    <div class="form-group">
+        <label for="category">Category:</label>
+        <select name="category" class="form-control" required>
+            <option value="" selected disabled hidden> -- Choose Category -- </option>
+            {% for category in all_categories %}
+           <option value="{{ category['category_name'] }}">{{ category['category_name'] }}</option>
+        {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group"> <label  for="description"> description: </label>    
+    <input type="text" id="description" name="description" class="form-control" required ></div>
+
+    <div class="form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
+    <input type="text" id="estimated_cost" name="estimated_cost" class="form-control" required ></div>
+
+    <div class="form-group"><label  for="address"> address: </label>    
+    <input type="text" id="address" name="address" class="form-control" required ></div>
+
+    <div class="form-group"> <label  for="city"> City: </label>    
+        <input type="text" id="city" name="city" class="form-control" required ></div>
+    
+    <div class="form-group"> <label  for="state"> State: </label>    
+    <input type="text" id="state" name="state" class="form-control" required ></div>
+
+    <div class="form-group"> <label  for="country"> Country: </label>    
+        <input type="text" id="counry" name="country" class="form-control" required ></div>
+
+    <div class="form-group"> <label  for="expected_date"> Expected Date: </label>    
+        <input type="text" id="expected_date" name="expected_date" class="form-control" required ></div>
+
+    <div class="form-group"> <label  for="username"> Username: </label>    
+        <input type="text" id="username" name="username" class="form-control" value = "{{ current_user.username }}" readonly required ></div>
+
+    
+    <div class="form-group">  
+<input type="submit" value="Add Activity"></div>
+
+</form>
+<hr>
+
+<br>
+
+{% endblock %}

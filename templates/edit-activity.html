@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit an activity {% endblock %}
+
+
+{% block body %}
+
+<h3>Edit an activity</h3>
+<hr>
+<form method="POST" action="{{ url_for('update_activity', activity_id=activity['_id']) }}">
+
+    <div class="form-group"> <label  for="activity_name"> Activity: </label>    
+        <input type="text" id="activity_name" name="activity_name" class="form-control"  value="{{ activity['activity_name'] }}" required autofocus ></div>
+    
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select name="category" class="form-control" required>
+                <option value="" selected disabled hidden> -- Choose Category -- </option>
+                {% for category in all_categories %}
+               <option value="{{ category['category_name'] }}">{{ category['category_name'] }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    
+        <div class="form-group"> <label  for="description"> description: </label>    
+        <input type="text" id="description" name="description" class="form-control" value="{{ activity['description'] }}" required ></div>
+    
+        <div class="form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
+        <input type="text" id="estimated_cost" name="estimated_cost" class="form-control" value="{{ activity['estimated_cost'] }}" required ></div>
+    
+        <div class="form-group"><label  for="address"> address: </label>    
+        <input type="text" id="address" name="address" class="form-control" value="{{ activity['cost'] }}" required ></div>
+    
+        <div class="form-group"> <label  for="city"> City: </label>    
+            <input type="text" id="city" name="city" class="form-control" value="{{ activity['city'] }}"  required ></div>
+        
+        <div class="form-group"> <label  for="state"> State: </label>    
+        <input type="text" id="state" name="state" class="form-control" value="{{ activity['state'] }}" required ></div>
+    
+        <div class="form-group"> <label  for="country"> Country: </label>    
+            <input type="text" id="counry" name="country" class="form-control" value="{{ activity['country'] }}" required ></div>
+    
+        <div class="form-group"> <label  for="expected_date"> Expected Date: </label>    
+            <input type="text" id="expected_date" name="expected_date" class="form-control" value="{{ activity['expected_date'] }}" required ></div>
+    
+        <div class="form-group"> <label  for="username"> Username: </label>    
+            <input type="text" id="username" name="username" class="form-control" value="{{ activity['username'] }}" required ></div>
+    
+
+    <div>
+        <input type="submit" class="btn btn-secondary" value="Update activity"></div>
+
+</form>
+<hr>
+
+<br>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} activities {% endblock %}
+
+
+{% block body %} 
+
+<h1>Bucket List</h1>
+
+{% if all_bucketList %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Activity</th>
+            <th scope="col">Category</th>
+            <th scope="col">Username</th>
+            
+            <th scope="col">Date Added</th>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for activity in all_bucketList %}
+        <tr>
+            
+            <td> {{ activity['activity_name'] }}</td>
+            <td> {{ activity['category'] }}</td>
+            <td> {{ activity['username']}}</td>
+            
+            <td> {{ activity['date_added'] }}</td>
+            
+        
+            <td>
+                <form action="{{ url_for('print_activity', activity_id=activity['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-primary" value="View activity" />
+                </form>
+            </td>
+
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

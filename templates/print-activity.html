@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} Print a activity {% endblock %}
+
+
+{% block body %}
+
+<h3>{{ activity['activity_name'] }}</h3>
+<hr>
+<div class="form-group">
+    <label class="print">Category:</label>
+    <p style="display:inline;">{{ activity['category'] }}</p>
+</div>
+
+<div class="form-group">
+    <label class="print" for="activity_description"> Description: </label>
+    
+    <p> {{ activity['description'] }} </p>
+    
+</div>
+
+<div class="form-group">
+    <label class="print" for="estimated_cost"> Estimated Cost: </label>
+    
+    
+    <p> {{ activity['estimated_cost'] }} </p>
+   
+</div>
+<hr>
+<div class="form-group">
+    <label class="print" for="address"> address: </label>
+    {{ activity['address'] }}
+</div>
+
+<div class="form-group"> <label> State: </label>
+    <p style="display:inline;">{{ activity['state']}}</p>
+</div>
+
+
+<div class="form-group"> <label> Country: </label>
+    <p style="display:inline;">{{ activity['country'] }}</p>
+</div>
+
+<div class="form-group"> <label> Expected Date: </label>
+    <p style="display:inline;">{{ activity['expected_date'] }}</p>
+</div>
+
+<div class="form-group"> <label> Username: </label>
+    <p style="display:inline;">{{ activity['username'] }}</p>
+</div>
+
+<div class="form-group"> <label> Date Added: </label>
+    <p style="display:inline;">{{ activity['date_added'] }}</p>
+</div>
+
+<div class="form-group"> <label> Last modified: </label>
+    <p style="display:inline;">{{ activity['date_modified'] }}</p>
+</div>
+
+<br>
+
+{% endblock %}
+
