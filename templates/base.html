@@ -10,6 +10,8 @@
     
 </head>
 <body>
+
+  <h1 id="base_title" style="text-align: center;"> Bucket List </h1>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">
@@ -29,40 +31,62 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          
             {% if current_user.is_authenticated %}
-            <a class="nav-link" href="{{ url_for('my_account', user_id=current_user['_id']) }}">{{ current_user.username }}</a>
-            <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('my_account', user_id=current_user['_id']) }}">{{ current_user.username }}</a>
+            </li>
             {% else %}
-            <a class="nav-link" href="{{ url_for('login')}}">login</a>
-            <a class="nav-link" href="{{ url_for('register')}}">Register</a>
-            {% endif %}
-          </li>
-
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login')}}">login</a>
+            </li>
+              <a class="nav-link" href="{{ url_for('register')}}">Register</a>
+           
+             </li>
+          {% endif %}
 
           {% if current_user['role'] == 'admin' %}
-          <li>
-            <a class="nav-link" href="{{ url_for('admin_activities') }}">Activity Administration</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('admin_activities') }}">Activities</a>
+              <a class="dropdown-item" href="{{ url_for('admin_users') }}">Users</a>
+          
+
+            </div>
           </li>
-          <li>
-            <a class="nav-link" href="{{ url_for('admin_users') }}">User Administration</a>
-          </li>
+            
           {% endif %}
 
 
           {% if current_user['role'] == 'admin' or current_user['role'] == 'contributor' %}
-          <li>
-            <a class="nav-link" href="{{ url_for('activity_page') }}">Add Activity</a>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Bucket Lists
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('view_my_activities') }}">My Bucket List</a>
+              <a class="dropdown-item" href="{{ url_for('activity_page') }}">Add Activity</a>
+            </div>
           </li>
+          
           {% endif %}
           <li>
-            <a class="nav-link" href="{{ url_for('view_activities')}}">Bucket List</a>
-          </li>
+            <a class="nav-link" href="{{ url_for('view_activities')}}">Public Bucket List</a>
+          
+            </li>
           
           <li>
             <a class="nav-link" href="{{ url_for('about') }}">About</a>
           </li>
-
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
+            </li>
+          {% endif %}
         </ul>
 
         <form class="form-inline my-2 my-lg-0" method="POST">

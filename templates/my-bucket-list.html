@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %} activities {% endblock %}
+{% block title %} My Bucket List {% endblock %}
 
 
 {% block body %} 
 
-<h1>Public Bucket List</h1>
+<h1>My Bucket List</h1>
 
 {% if all_bucketList %}
 <table class="table table-hover">
@@ -22,7 +22,7 @@
 
     <tbody>
         {% for activity in all_bucketList %}
-        {%if activity.share_status == "Public" %}
+        {% if current_user['username'] == activity['username'] %}
         <tr>
             
             <td> {{ activity['activity_name'] }}</td>

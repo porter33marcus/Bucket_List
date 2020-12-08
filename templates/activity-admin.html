@@ -6,6 +6,50 @@
 {% block body %} 
 
 <h1>Admin Activity Page</h1>
+
+
+
+  <hr>
+
+  <br>
+  {% if all_bucketList %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Activity</th>
+                <th scope="col">Category</th>
+                <th scope="col">Username</th>
+                <th scope="col">Share Status</th>
+                <th scope="col">Date Added</th>
+                
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in all_bucketList %}
+            <tr>
+                
+                <td> {{ row['activity_name'] }}</td>
+                <td> {{ row['category'] }}</td>
+                <td> {{ row['username']}}</td>
+                <td> {{ row['share_status']}}</td>
+                <td> {{ row['date_added'] }}</td>
+                
+                <td><form action="{{ url_for('edit_activity', activity_id=row['_id']) }}" method="POST">
+                    <input type="submit"  class="btn btn-primary" value="Edit"  />
+                </form>    </td>
+
+                <td><form action="{{ url_for('delete_activity', activity_id=row['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete"  />
+                </form>    </td>
+
+               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+<br/>
 <hr>
 
 <h3>Add an Activity</h3>
@@ -13,7 +57,7 @@
   <form method="POST" action="/activities/add-activity">
 
     <div class="form-group"> <label  for="activity_name"> Activity: </label>    
-    <input type="text" id="activity_name" name="activity_name" class="form-control" required autofocus ></div>
+    <input type="text" id="activity_name" name="activity_name" class="form-control" required  ></div>
 
     <div class="form-group">
         <label for="category">Category:</label>
@@ -27,6 +71,16 @@
 
     <div class="form-group"> <label  for="description"> description: </label>    
     <input type="text" id="description" name="description" class="form-control" required ></div>
+
+    <div class="form-group">
+        <label for="share_status">Share Status:</label>
+        <select name="share_status" class="form-control" required>
+            <option value="" selected disabled hidden> -- Choose Status -- </option>
+            {% for status in all_status %}
+           <option value="{{ status['share_status'] }}">{{ status['share_status'] }}</option>
+        {% endfor %}
+        </select>
+    </div>
 
     <div class="form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
     <input type="text" id="estimated_cost" name="estimated_cost" class="form-control" required ></div>
@@ -51,47 +105,7 @@
 
     
     <div class="form-group">  
-<input type="submit" value="Add Activity"></div>
+<input type="submit" class="btn btn-success" value="Add Activity"></div>
 
 </form>
-  <hr>
-
-  <br>
-  {% if all_bucketList %}
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Activity</th>
-                <th scope="col">Category</th>
-                <th scope="col">Username</th>
-                
-                <th scope="col">Date Added</th>
-                
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for row in all_bucketList %}
-            <tr>
-                
-                <td> {{ row['activity_name'] }}</td>
-                <td> {{ row['category'] }}</td>
-                <td> {{ row['username']}}</td>
-                
-                <td> {{ row['date_added'] }}</td>
-                
-            
-                <td><form action="{{ url_for('delete_activity', activity_id=row['_id']) }}" method="POST">
-                    <input type="submit" value="Delete"  />
-                </form>    </td>
-
-                <td><form action="{{ url_for('edit_activity', activity_id=row['_id']) }}" method="POST">
-                    <input type="submit" value="Edit"  />
-                </form>    </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
-
 {% endblock %}

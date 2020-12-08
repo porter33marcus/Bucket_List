@@ -25,11 +25,21 @@
         <div class="form-group"> <label  for="description"> description: </label>    
         <input type="text" id="description" name="description" class="form-control" value="{{ activity['description'] }}" required ></div>
     
+        <div class="form-group">
+            <label for="share_status">Share Status:</label>
+            <select name="share_status" class="form-control" required>
+                <option value="" selected disabled hidden> -- Choose Category -- </option>
+                {% for status in all_status %}
+               <option value="{{ status['share_status'] }}">{{ status['share_status'] }}</option>
+            {% endfor %}
+            </select>
+        </div>
+
         <div class="form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
         <input type="text" id="estimated_cost" name="estimated_cost" class="form-control" value="{{ activity['estimated_cost'] }}" required ></div>
     
         <div class="form-group"><label  for="address"> address: </label>    
-        <input type="text" id="address" name="address" class="form-control" value="{{ activity['cost'] }}" required ></div>
+        <input type="text" id="address" name="address" class="form-control" value="{{ activity['address'] }}" required ></div>
     
         <div class="form-group"> <label  for="city"> City: </label>    
             <input type="text" id="city" name="city" class="form-control" value="{{ activity['city'] }}"  required ></div>
@@ -43,8 +53,12 @@
         <div class="form-group"> <label  for="expected_date"> Expected Date: </label>    
             <input type="text" id="expected_date" name="expected_date" class="form-control" value="{{ activity['expected_date'] }}" required ></div>
     
+
         <div class="form-group"> <label  for="username"> Username: </label>    
-            <input type="text" id="username" name="username" class="form-control" value="{{ activity['username'] }}" required ></div>
+            <input type="text" id="username" name="username" class="form-control" value="{{ activity['username'] }}"  readonly required ></div>
+    
+        <div class="form-group"> <label  for="date_added"> Date Added: </label>    
+            <input type="text" id="date_added" name="date_added" class="form-control" value="{{ activity['expected_date'] }}" readonly required ></div>
     
 
     <div>

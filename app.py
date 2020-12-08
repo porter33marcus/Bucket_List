@@ -9,7 +9,7 @@ import bcrypt
 from functools import wraps
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] =  #os.getenv('SECRET_KEY')
 
 ## necessary for python-dotenv ##
 APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
@@ -18,6 +18,7 @@ load_dotenv(dotenv_path)
 
 mongo = os.getenv('MONGO')
 
+
 client = pymongo.MongoClient(mongo)
 
 db = client['bucket_list'] # Mongo collection
@@ -25,6 +26,7 @@ users = db['users'] # Mongo document
 roles = db['roles'] # Mongo document
 categories = db['categories'] # Mongo document
 bucketList = db['bucketList'] # Mongo document
+status = db['status']
 
 login = LoginManager()
 login.init_app(app)
@@ -104,7 +106,13 @@ def add_user():
         email = users.find_one({"email": request.form['email']})
         if email:
             flash('This email is already registered.', 'warning')
-            return 'This email has already been registered.'
+            return 'This email has already been registered. back page on your browser to change email.'
+        username = users.find_one({"username": request.form['username']})
+        if username:
+            flash('This username is already registered.', 'warning')
+            return 'This username has already been registered. back page on your browser to change username.'
+        
+        
         new_user = {
             'first_name': form['first_name'],
             'last_name': form['last_name'],
@@ -292,6 +300,8 @@ def add_category():
         return redirect(url_for('admin_activities'))
     return render_template('activity-admin.html', all_categories=categories.find())
 
+
+
 @app.route('/activities/delete_category/<category_id>', methods=['GET'])
 @login_required
 @roles_required('admin')
@@ -304,28 +314,60 @@ def delete_category(category_id):
     flash('activity not found.', 'warning')
     return redirect(url_for('admin_activities'))
 
-    
-
+@app.route('/activities/add-share-status', methods=['POST'])
+@login_required
+@roles_required('admin')
+def add_share_status():
+    if request.method == 'POST':
+        form = request.form
+        share_status = users.find_one({"share_status": request.form['new_share_status']})
+        if share_status:
+            flash('This status is already registered.', 'warning')
+            return url_for('/admin_users')
+        new_share_status = {
+            'share_status': form['share_status'],
+        }
+        status.insert_one(new_share_status)
+        flash(new_status['share_status'] + ' has been added.', 'success')
+        return redirect(url_for('admin_activities'))
+    return render_template('activity-admin.html', all_status=status.find())  
+@app.route('/activities/delete_share_status/<share_status_id>', methods=['GET'])
+@login_required
+@roles_required('admin')
+def delete_share_status(share_status_id):
+    delete_share_status = status.find_one({'_id': ObjectId(category_id)})
+    if delete_share_status:
+        status.delete_one(delete_share_status)
+        flash(delete_share_status['share_status'] + ' has been deleted.', 'danger')
+        return redirect(url_for('admin_activities'))
+    flash('activity not found.', 'warning')
+    return redirect(url_for('admin_activities'))
 
 ##########  activities ##########
 @app.route('/activities', methods=['GET', 'POST'])
-@login_required
-@roles_required('admin', 'contributor', 'user')
+
 def view_activities():
     return render_template('activities.html', all_bucketList=bucketList.find())
+
+@app.route('/activities/my-bucket-list', methods=['GET', 'POST'])
+@login_required
+@roles_required('admin', 'contributor')
+def view_my_activities():
+    return render_template('my-bucket-list.html', all_bucketList=bucketList.find())
+
 
 
 @app.route('/activities/activities', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin')
 def admin_activities():
-    return render_template('activity-admin.html', all_categories=categories.find(), all_bucketList=bucketList.find())
+    return render_template('activity-admin.html', all_categories=categories.find(), all_bucketList=bucketList.find(), all_status=status.find())
 
 @app.route('/activities/new-activity', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin', 'contributor')
 def activity_page():
-    return render_template('new-activity.html', all_categories=categories.find(), all_bucketList=bucketList.find())
+    return render_template('new-activity.html', all_categories=categories.find(), all_bucketList=bucketList.find(), all_status=status.find())
 
 
 
@@ -342,6 +384,7 @@ def add_activity():
         'activity_name' : form['activity_name'],
         'category' : form['category'],
         'description' : form['description'],
+        'share_status' : form['share_status'],
         'estimated_cost' : form['estimated_cost'],
         'address' : form['address'],
         'city' : form['city'],
@@ -357,16 +400,16 @@ def add_activity():
         }
         bucketList.insert_one(new_activity)
         flash('New activity has been added.', 'success')
-        return redirect(url_for('view_activities'))
+        return redirect(url_for('view_my_activities'))
     return render_template('new-activity.html', all_categories=categories.find())
 
 @app.route('/activities/edit-activity/<activity_id>', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin')
 def edit_activity(activity_id):
-    edit_activity = activities.find_one({'_id': ObjectId(activity_id)})
+    edit_activity = bucketList.find_one({'_id': ObjectId(activity_id)})
     if edit_activity:
-        return render_template('edit-activity.html', activity=edit_activity, all_categories=categories.find())
+        return render_template('edit-activity.html', activity=edit_activity, all_categories=categories.find(), all_status=status.find())
     flash('activity not found.', 'danger')
     return redirect(url_for('admin_activities'))
 @app.route('/activities/update-activity/<activity_id>', methods=['POST'])
@@ -375,11 +418,12 @@ def edit_activity(activity_id):
 def update_activity(activity_id):
     if request.method == 'POST':
         form = request.form
-        activities.update({'_id': ObjectId(activity_id)},
+        bucketList.update({'_id': ObjectId(activity_id)},
             {
                 'activity_name' : form['activity_name'],
                 'category' : form['category'],
                 'description' : form['description'],
+                'share_status' : form['share_status'],
                 'estimated_cost' : form['estimated_cost'],
                 'address' : form['address'],
                 'city' : form['city'],
@@ -395,7 +439,7 @@ def update_activity(activity_id):
 
            
             })
-        update_activity = activities.find_one({'_id': ObjectId(activity_id)})
+        update_activity = bucketList.find_one({'_id': ObjectId(activity_id)})
         flash(update_activity['activity_name'] + ' has been updated.', 'success')
         return redirect(url_for('view_activities'))
     return render_template('edit-activity.html', all_categories=categories.find())

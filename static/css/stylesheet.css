@@ -1,3 +1,7 @@
 input:read-only { 
     background-color: lightgray;
   }
+
+#base_title{
+  text-align: center;
+}

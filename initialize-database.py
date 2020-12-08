@@ -17,6 +17,7 @@ users = db['users']
 roles = db['roles']
 bucketList = db['bucketList']
 categories = db['categories']
+status = db['status']
 
 
 def add_role(role_name):
@@ -43,11 +44,12 @@ def add_user(first_name, last_name, username, email, password, role):
     return users.insert_one(user_data)
 
 
-def add_activity(activity_name, category, description, estimated_cost, address, city, state, country, expected_date, username):
+def add_activity(activity_name, category, description, share_status, estimated_cost, address, city, state, country, expected_date, username):
     activity_data = {
         'activity_name' : activity_name,
         'category' : category,
         'description' : description,
+        'share_status' : share_status,
         'estimated_cost' : estimated_cost,
         'address' : address,
         'city' : city,
@@ -68,6 +70,12 @@ def add_category(category_name):
     }
     return categories.insert_one(category_data)
 
+def add_status(share_status):
+    status_data = {
+        'share_status': share_status
+    }
+    return status.insert_one(status_data)
+
 def initial_database():
     # add roles
     admin = add_role('admin')
@@ -84,10 +92,15 @@ def initial_database():
     nature = add_category('Nature')
     event = add_category('Event')
     
+
+    # add status
+    private = add_status('Private')
+    public = add_status('Public')
    
     # add activity
-    skydiving = add_activity('skydiving', 'Adrenaline rush','solo skydiving in colorado', '$150', '1172 Airport Center Rd', 'Glenwood Springs', 'Colorado', 'United States of America', '06/15/2021', 'porter33marcus')
+    skydiving = add_activity('skydiving', 'Adrenaline rush','solo skydiving in colorado', 'Public', '$150', '1172 Airport Center Rd', 'Glenwood Springs', 'Colorado', 'United States of America', '06/15/2021', 'porter33marcus')
 
+    
 
 def main():
     initial_database()
