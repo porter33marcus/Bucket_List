@@ -9,14 +9,14 @@ import bcrypt
 from functools import wraps
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] =  os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] =   os.getenv('SECRET_KEY')
 
 ## necessary for python-dotenv ##
 APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
 dotenv_path = os.path.join(APP_ROOT, '.env')
 load_dotenv(dotenv_path)
 
-mongo =  os.getenv('MONGO')
+mongo =   os.getenv('MONGO')
 
 
 client = pymongo.MongoClient(mongo)
@@ -141,10 +141,10 @@ def login():
             next_page = request.args.get('next')
 
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
+                next_page = url_for('view_activities')
                 return redirect(next_page)
             flash("Logged in successfully!", category='success')
-            return redirect(request.args.get("next") or url_for("index"))
+            return redirect(request.args.get("next") or url_for("view_activities"))
 
         flash("Wrong username or password!", category='danger')
     return render_template('login.html')
