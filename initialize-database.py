@@ -80,7 +80,7 @@ def initial_database():
     # add roles
     admin = add_role('admin')
     contributor = add_role('contributor')
-    user = add_role('user')
+    
 
     # add users
     marcus = add_user('Marcus', 'Porter', 'porter33marcus', 'marcus@porter.com', 'abc123', 'admin')
@@ -91,7 +91,7 @@ def initial_database():
     adrenaline = add_category('Adrenaline rush')
     nature = add_category('Nature')
     event = add_category('Event')
-    
+    other = add_category('Other')
 
     # add status
     private = add_status('Private')

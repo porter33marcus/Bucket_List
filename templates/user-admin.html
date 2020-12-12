@@ -5,7 +5,7 @@
 
 {% block body %} 
 
-<h1>User Admin Page</h1>
+<h2>User Admin Page</h2>
 <hr>
 <div>
     <h3>All accounts</h3>
@@ -35,7 +35,7 @@
             <td> {{ row['username'] }}</td>
             <td> {{ row['email'] }}</td>
             <td> {{ row['role'] }}</td>
-            <td> {{ row['date_added'] }}</td>
+            <td>  {{ row['date_added'] }}</td>
             <td> {{ row['date_modified'] }}</td>
             <td>
                 <form action="{{ url_for('admin_edit_user', user_id=row['_id']) }}" method="POST">
@@ -62,28 +62,28 @@
     <hr>
     <form method="POST" action="/admin/add-user">
 
-        <div  class="form-group"> <label for="first_name" > First Name: </label>
-            <input type="text" id="first_name" name="first_name" class="form-control" required autofocus></div>
+        <div  class="col-md-4 form-group"> <label for="first_name" > First Name: </label>
+            <input type="text" id="first_name" name="first_name" class="form-control" required ></div>
 
-        <div  class="form-group"> <label for="last_name" > Last Name: </label>
+        <div  class="col-md-4 form-group"> <label for="last_name" > Last Name: </label>
             <input type="text" id="last_name" name="last_name" class="form-control" required></div>
 
 
-        <div class="form-group"> <label for="username"> Username: </label>
+        <div class="col-md-4 form-group"> <label for="username"> Username: </label>
             <input type="text" id="username" name="username" class="form-control" required >
             </div>
               
               
-        <div  class="form-group"> <label for="email" > Email: </label>
+        <div  class="col-md-4 form-group"> <label for="email" > Email: </label>
             <input type="text" id="email" name="email" class="form-control" required></div>
 
-        <div  class="form-group"> <label for="password" > Password: </label>
+        <div  class="col-md-4 form-group"> <label for="password" > Password: </label>
             <input type="text" id="password" name="password" class="form-control" required></div>
 
-        <div  class="form-group"> <label for="confirm_password" > Confirm password: </label>
+        <div  class="col-md-4 form-group"> <label for="confirm_password" > Confirm password: </label>
             <input type="text" id="confirm_password" name="confirm_password" class="form-control" required></div>
 
-            <div class="form-group">
+            <div class="col-md-4 form-group">
             <label for="role"  class="mr-sm-2" >Role :</label>
             <select name="role" id="role" class="custom-select mr-sm-2" required>
                 <option value="" selected disabled hidden> Choose role ... </option>

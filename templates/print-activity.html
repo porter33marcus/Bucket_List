@@ -9,56 +9,84 @@
 <hr>
 <div class="form-group">
     <label class="print">Category:</label>
+    <br/>
     <p style="display:inline;">{{ activity['category'] }}</p>
 </div>
 
 <div class="form-group">
     <label class="print" for="activity_description"> Description: </label>
-    
+    <br/>
     <p> {{ activity['description'] }} </p>
     
 </div>
+<br/>
 
 <div class="form-group">
     <label class="print">Share Status:</label>
+    <br/>
     <p style="display:inline;">{{ activity['share_status'] }}</p>
 </div>
+<br/>
 
 <div class="form-group">
+
     <label class="print" for="estimated_cost"> Estimated Cost: </label>
     
-    
+    <br/>
     <p> {{ activity['estimated_cost'] }} </p>
    
 </div>
 <hr>
+<br/>
 <div class="form-group">
     <label class="print" for="address"> address: </label>
-    {{ activity['address'] }}
+   <p>{{ activity['address'] }}</p> 
 </div>
+<br/>
+<div class="form-group"> 
+    <label> City: </label>
+    <br/>
+    <p style="display:inline;">{{ activity['city']}}</p>
+</div>
+<br/>
 
-<div class="form-group"> <label> State: </label>
+<div class="form-group"> 
+    <label> State: </label>
+    <br/>
     <p style="display:inline;">{{ activity['state']}}</p>
 </div>
+<br/>
 
-
-<div class="form-group"> <label> Country: </label>
+<div class="form-group"> 
+    <label> Country: </label>
+    <br/>
     <p style="display:inline;">{{ activity['country'] }}</p>
 </div>
-
-<div class="form-group"> <label> Expected Date: </label>
+<hr>
+<br/>
+<div class="form-group"> 
+    <label> Expected Date: </label>
+    <br/>
     <p style="display:inline;">{{ activity['expected_date'] }}</p>
 </div>
+<br/>
 
-<div class="form-group"> <label> Username: </label>
+<div class="form-group">
+     <label> Username: </label>
+     <br/>
     <p style="display:inline;">{{ activity['username'] }}</p>
 </div>
+<br/>
 
-<div class="form-group"> <label> Date Added: </label>
+<div class="form-group">
+     <label> Date Added: </label>
+     <br/>
     <p style="display:inline;">{{ activity['date_added'] }}</p>
 </div>
+<br/>
 
 <div class="form-group"> <label> Last modified: </label>
+    <br/>
     <p style="display:inline;">{{ activity['date_modified'] }}</p>
 </div>
 

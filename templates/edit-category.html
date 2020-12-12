@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit a Category {% endblock %}
+
+
+{% block body %}
+
+<h3 style="text-align: center;">Edit a Category</h3>
+<hr>
+<form method="POST" action="{{ url_for('update_category', category_id=category['_id']) }}">
+
+    <div class="row"> 
+        <div class="col-md-3"> </div>
+        <div class="col-md-6 form-group"> 
+             <label  for="category_name"> category: </label>    
+            <input type="text" id="category_name" name="category_name" class="form-control"  value="{{ category['category_name'] }}" required autofocus >
+        </div>
+    </div>
+
+
+    
+
+    <div class="row"> 
+        <div class="col-md-3"> </div>
+        <div class="col-md-6 form-group"> 
+    
+            <input type="submit" class="btn btn-success" value="Update Category">
+        </div>
+    </div>
+</form>
+<hr>
+
+<br>
+
+{% endblock %}

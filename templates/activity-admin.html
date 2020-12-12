@@ -5,12 +5,12 @@
 
 {% block body %} 
 
-<h1>Admin Activity Page</h1>
+<h2>Admin Activity Page</h2>
 
 
 
   <hr>
-
+<h3>All Activities</h3>
   <br>
   {% if all_bucketList %}
     <table class="table table-hover">
@@ -56,10 +56,10 @@
   <hr>
   <form method="POST" action="/activities/add-activity">
 
-    <div class="form-group"> <label  for="activity_name"> Activity: </label>    
+    <div class="col-md-4 form-group"> <label  for="activity_name"> Activity: </label>    
     <input type="text" id="activity_name" name="activity_name" class="form-control" required  ></div>
 
-    <div class="form-group">
+    <div class="col-md-4 form-group">
         <label for="category">Category:</label>
         <select name="category" class="form-control" required>
             <option value="" selected disabled hidden> -- Choose Category -- </option>
@@ -69,10 +69,10 @@
         </select>
     </div>
 
-    <div class="form-group"> <label  for="description"> description: </label>    
+    <div class="col-md-4 form-group"> <label  for="description"> description: </label>    
     <input type="text" id="description" name="description" class="form-control" required ></div>
 
-    <div class="form-group">
+    <div class="col-md-4 form-group">
         <label for="share_status">Share Status:</label>
         <select name="share_status" class="form-control" required>
             <option value="" selected disabled hidden> -- Choose Status -- </option>
@@ -82,29 +82,29 @@
         </select>
     </div>
 
-    <div class="form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
+    <div class="col-md-4 form-group"> <label  for="estimated_cost"> Estimated Cost: </label>    
     <input type="text" id="estimated_cost" name="estimated_cost" class="form-control" required ></div>
 
-    <div class="form-group"><label  for="address"> address: </label>    
+    <div class="col-md-4 form-group"><label  for="address"> address: </label>    
     <input type="text" id="address" name="address" class="form-control" required ></div>
 
-    <div class="form-group"> <label  for="city"> City: </label>    
+    <div class="col-md-4 form-group"> <label  for="city"> City: </label>    
         <input type="text" id="city" name="city" class="form-control" required ></div>
     
-    <div class="form-group"> <label  for="state"> State: </label>    
+    <div class="col-md-4 form-group"> <label  for="state"> State: </label>    
     <input type="text" id="state" name="state" class="form-control" required ></div>
 
-    <div class="form-group"> <label  for="country"> Country: </label>    
+    <div class="col-md-4 form-group"> <label  for="country"> Country: </label>    
         <input type="text" id="counry" name="country" class="form-control" required ></div>
 
-    <div class="form-group"> <label  for="expected_date"> Expected Date: </label>    
+    <div class="col-md-4 form-group"> <label  for="expected_date"> Expected Date: </label>    
         <input type="text" id="expected_date" name="expected_date" class="form-control" required ></div>
 
-    <div class="form-group"> <label  for="username"> Username: </label>    
+    <div class="col-md-4 form-group"> <label  for="username"> Username: </label>    
         <input type="text" id="username" name="username" class="form-control" value = "{{ current_user.username }}" readonly required ></div>
 
     
-    <div class="form-group">  
+    <div class="col-md-4 form-group">  
 <input type="submit" class="btn btn-success" value="Add Activity"></div>
 
 </form>

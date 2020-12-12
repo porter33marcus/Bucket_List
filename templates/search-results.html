@@ -23,6 +23,8 @@
     <tbody>
         {% for activity in all_bucketList %}
         {%if activity.share_status == "Public" %}
+        
+        {% if search_string in activity.activity_name or search_string in activity.category or search_string in activity.description or search_string in activity.username or search_string in activity.estimated_cost or search_string in activity.address or search_string in activity.city or search_string in activity.state or search_string in activity.country or search_string in activity.expected_date%}
         <tr>
             
             <td> {{ activity['activity_name'] }}</td>
@@ -47,6 +49,7 @@
             </form>    </td>
             {% endif %}
         </tr>
+        {% endif %}
         {% endif %}
         {% endfor %}
     </tbody>
